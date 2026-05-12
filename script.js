@@ -840,3 +840,74 @@
     
 //     alert(impares)
 // }
+
+
+
+// function ehPalindromo(palavra) {
+//   const texto = palavra.toLowerCase().replace(/\s+/g, '');
+//   const invertido = texto.split('').reverse().join('');
+
+//   return texto === invertido;
+// }
+
+// // INPUT do usuário
+// const palavra = prompt("Digite uma palavra:");
+
+// // Verifica e mostra resultado
+// if (ehPalindromo(palavra)) {
+//   alert("É um palíndromo!");
+// } else {
+//   alert("Não é um palíndromo!");
+// }
+
+
+
+// numero primo se nao for mostra os divisores
+// function verificarPrimo(numero) {
+//     let divisores = [];
+
+//     if (numero <= 1) {
+//         console.log(numero + " não é primo.");
+//         return;
+//     }
+
+//     for (let i = 2; i < numero; i++) {
+//         if (numero % i === 0) {
+//             divisores.push(i);
+//         }
+//     }
+
+//     if (divisores.length === 0) {
+//         console.log(numero + " é primo.");
+//     } else {
+//         console.log(numero + " não é primo.");
+//         console.log("Divisores encontrados: " + divisores.join(", "));
+//     }
+// }
+
+// // Exemplo de uso
+// let numero = Number(prompt("Digite um número:"));
+// verificarPrimo(numero);
+
+
+
+// é numero primo ou nao
+function ehPrimo(numero) {
+    if (numero <= 1) return false;
+
+    for (let i = 2; i <= Math.sqrt(numero); i++) {
+        if (numero % i === 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+let numero = Number(prompt("Digite um número:"));
+
+alert(
+    ehPrimo(numero)
+        ? `${numero} é primo`
+        : `${numero} não é primo`
+);

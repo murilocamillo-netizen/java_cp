@@ -809,21 +809,19 @@
 // //==============================================================================
 
 
-// // par
+// // par - Versão para console
 // const numero = Number(prompt("Digite um número:"))
 
 // if (isNaN(numero) || numero <= 0) {
-//     alert("Digite um número válido maior que zero!")
+//     console.log("Digite um número válido maior que zero!")
 // } else {
-//     let pares = `Números pares de 1 até ${numero}:\n\n`
+//     console.log(`Números pares de 1 até ${numero}:`)
+//     console.log("-----------------------------")
     
 //     for (let i = 2; i <= numero; i += 2) {
-//         pares = pares + `${i}\n`
+//         console.log(i)
 //     }
-    
-//     alert(pares)
 // }
-
 
 
 

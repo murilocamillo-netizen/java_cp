@@ -891,23 +891,725 @@
 
 
 
-// é numero primo ou nao
-function ehPrimo(numero) {
-    if (numero <= 1) return false;
+// // é numero primo ou nao
+// function ehPrimo(numero) {
+//     if (numero <= 1) return false;
 
-    for (let i = 2; i <= Math.sqrt(numero); i++) {
-        if (numero % i === 0) {
-            return false;
-        }
+//     for (let i = 2; i <= Math.sqrt(numero); i++) {
+//         if (numero % i === 0) {
+//             return false;
+//         }
+//     }
+
+//     return true;
+// }
+
+// let numero = Number(prompt("Digite um número:"));
+
+// alert(
+//     ehPrimo(numero)
+//         ? `${numero} é primo`
+//         : `${numero} não é primo`
+// );
+
+
+
+
+
+
+
+
+// //================================================================================
+// //📚 QUESTÃO 1 - PROVA
+// //📌 Programa de validação de senha
+
+// // === ENUNCIADO ===
+// // Crie um programa que solicita ao usuário que cadastre uma senha.
+// // A senha deve atender aos seguintes critérios:
+// // - Ter no mínimo 8 caracteres
+// // - Conter pelo menos um número
+// // - Conter pelo menos uma letra maiúscula
+// // - Não pode ser igual a "admin" ou "123456"
+// //
+// // O programa deve repetir a solicitação até que a senha seja válida,
+// // informando a cada erro qual critério não foi atendido.
+
+// // === RESOLUÇÃO ===
+
+// function validarSenha(senha) {
+//     // Verifica se está vazia ou é null
+//     if (!senha) {
+//         return "Senha não pode estar vazia!"
+//     }
+    
+//     // Verifica tamanho mínimo
+//     if (senha.length < 8) {
+//         return "A senha deve ter no mínimo 8 caracteres!"
+//     }
+    
+//     // Verifica se contém número
+//     let temNumero = false
+//     for (let i = 0; i < senha.length; i++) {
+//         if (senha[i] >= "0" && senha[i] <= "9") {
+//             temNumero = true
+//             break
+//         }
+//     }
+//     if (!temNumero) {
+//         return "A senha deve conter pelo menos um número!"
+//     }
+    
+//     // Verifica se contém letra maiúscula
+//     let temMaiuscula = false
+//     for (let i = 0; i < senha.length; i++) {
+//         if (senha[i] >= "A" && senha[i] <= "Z") {
+//             temMaiuscula = true
+//             break
+//         }
+//     }
+//     if (!temMaiuscula) {
+//         return "A senha deve conter pelo menos uma letra maiúscula!"
+//     }
+    
+//     // Verifica senhas proibidas
+//     if (senha === "admin" || senha === "123456") {
+//         return "Esta senha é muito fraca! Escolha outra."
+//     }
+    
+//     return null // Senha válida
+// }
+
+// // === PROGRAMA PRINCIPAL ===
+// let senha
+// let erro
+
+// do {
+//     senha = prompt("Cadastre sua senha:")
+    
+//     if (senha === null) {
+//         alert("Operação cancelada!")
+//         break
+//     }
+    
+//     erro = validarSenha(senha)
+    
+//     if (erro) {
+//         alert(erro)
+//     }
+    
+// } while (erro !== null && senha !== null)
+
+// if (senha !== null) {
+//     alert("✅ Senha cadastrada com sucesso!")
+// }
+
+// // === EXPLICAÇÃO ===
+// // - function validarSenha(senha) → função que testa todos os critérios
+// // - !senha → verifica se a senha está vazia ou é null
+// // - senha.length < 8 → verifica tamanho mínimo
+// // - for com if (senha[i] >= "0" && senha[i] <= "9") → percorre cada caractere procurando número
+// // - for com if (senha[i] >= "A" && senha[i] <= "Z") → percorre procurando letra maiúscula
+// // - senha === "admin" || senha === "123456" → verifica senhas comuns proibidas
+// // - return null → indica que a senha é válida
+// // - do/while → repete até a senha ser válida ou o usuário cancelar
+
+
+
+// //================================================================================
+// //================================================================================
+
+// //================================================================================
+//📚 QUESTÃO 2 - PROVA
+//📌 Calculadora de média com validação de notas
+
+// === ENUNCIADO ===
+// Desenvolva um programa que calcula a média de um aluno.
+// O programa deve:
+// 1. Solicitar quantas notas serão inseridas
+// 2. Para cada nota, solicitar o valor (de 0 a 10)
+// 3. Validar se cada nota está dentro do intervalo permitido
+// 4. Calcular e exibir a média final
+// 5. Exibir o conceito baseado na média:
+//    - A: média >= 9
+//    - B: média >= 7 e < 9
+//    - C: média >= 5 e < 7
+//    - D: média >= 3 e < 5
+//    - E: média < 3
+
+// === RESOLUÇÃO ===
+
+// Função para validar nota
+function validarNota(nota) {
+    if (isNaN(nota)) {
+        return "Digite um número válido!"
     }
-
-    return true;
+    if (nota < 0 || nota > 10) {
+        return "A nota deve estar entre 0 e 10!"
+    }
+    return null // Nota válida
 }
 
-let numero = Number(prompt("Digite um número:"));
+// Função para obter conceito
+function obterConceito(media) {
+    if (media >= 9) return "A"
+    if (media >= 7) return "B"
+    if (media >= 5) return "C"
+    if (media >= 3) return "D"
+    return "E"
+}
 
-alert(
-    ehPrimo(numero)
-        ? `${numero} é primo`
-        : `${numero} não é primo`
-);
+// Função para exibir situação
+function exibirSituacao(media, conceito) {
+    let situacao
+    
+    if (media >= 7) {
+        situacao = "APROVADO"
+    } else if (media >= 5) {
+        situacao = "RECUPERAÇÃO"
+    } else {
+        situacao = "REPROVADO"
+    }
+    
+    return `Média: ${media.toFixed(2)}\nConceito: ${conceito}\nSituação: ${situacao}`
+}
+
+// === PROGRAMA PRINCIPAL ===
+let quantidade
+
+// Valida quantidade de notas
+do {
+    quantidade = Number(prompt("Quantas notas serão inseridas?"))
+    
+    if (isNaN(quantidade) || quantidade <= 0) {
+        alert("Digite um número positivo válido!")
+    }
+} while (isNaN(quantidade) || quantidade <= 0)
+
+let somaNotas = 0
+let notasValidas = 0
+
+// Coleta e valida cada nota
+for (let i = 1; i <= quantidade; i++) {
+    let nota
+    let erro
+    
+    do {
+        nota = Number(prompt(`Digite a ${i}ª nota (0 a 10):`))
+        erro = validarNota(nota)
+        
+        if (erro) {
+            alert(erro)
+        }
+    } while (erro !== null)
+    
+    somaNotas = somaNotas + nota
+    notasValidas++
+}
+
+// Calcula média
+let media = somaNotas / notasValidas
+
+// Obtém conceito
+let conceito = obterConceito(media)
+
+// Exibe resultado
+alert(exibirSituacao(media, conceito))
+
+// === EXPLICAÇÃO ===
+// - validarNota(nota) → verifica se é número e se está entre 0 e 10
+// - obterConceito(media) → retorna letra baseada na média
+// - exibirSituacao() → retorna string formatada com média, conceito e situação
+// - do/while para quantidade → valida entrada do número de notas
+// - for com do/while interno → valida cada nota individualmente
+// - somaNotas = somaNotas + nota → acumula para calcular média
+// - toFixed(2) → formata média com 2 casas decimais
+
+
+
+//================================================================================
+//================================================================================
+
+
+
+// //================================================================================
+// //📚 QUESTÃO 3 - PROVA
+// //📌 Jogo de par ou ímpar com placar
+
+// // === ENUNCIADO ===
+// // Crie um jogo de "Par ou Ímpar" contra o computador.
+// // O programa deve:
+// // 1. Perguntar ao usuário se ele quer par ou ímpar
+// // 2. Solicitar um número de 0 a 5
+// // 3. Gerar um número aleatório para o computador (0 a 5)
+// // 4. Somar os dois números e determinar quem venceu
+// // 5. Manter um placar (usuário x computador)
+// // 6. Perguntar se quer jogar novamente
+// // 7. Exibir o placar final quando o usuário encerrar
+
+// // === RESOLUÇÃO ===
+
+// // Função para gerar número aleatório
+// const gerarNumeroComputador = () => Math.floor(Math.random() * 6) // 0 a 5
+
+// // Função para verificar se o número é válido
+// function validarNumero(numero) {
+//     if (isNaN(numero)) {
+//         return "Digite um número válido!"
+//     }
+//     if (numero < 0 || numero > 5) {
+//         return "Digite um número entre 0 e 5!"
+//     }
+//     return null
+// }
+
+// // Função para determinar o vencedor
+// function determinarVencedor(soma, escolhaUsuario) {
+//     const ehPar = soma % 2 === 0
+    
+//     if (ehPar && escolhaUsuario === "par") {
+//         return "usuario"
+//     } else if (!ehPar && escolhaUsuario === "impar") {
+//         return "usuario"
+//     } else {
+//         return "computador"
+//     }
+// }
+
+// // Função para exibir resultado da rodada
+// function exibirRodada(numUsuario, numComputador, soma, vencedor) {
+//     return `
+// Seu número: ${numUsuario}
+// Número do computador: ${numComputador}
+// Soma: ${soma} (${soma % 2 === 0 ? "PAR" : "ÍMPAR"})
+// Vencedor: ${vencedor === "usuario" ? "Você!" : "Computador!"}`
+// }
+
+// // === PROGRAMA PRINCIPAL ===
+// let placarUsuario = 0
+// let placarComputador = 0
+// let continuar = true
+
+// alert("🎮 JOGO DE PAR OU ÍMPAR 🎮\nRegras:\n- Escolha PAR ou ÍMPAR\n- Digite um número de 0 a 5\n- Ganha quem acertar!")
+
+// do {
+//     // Escolha do usuário (par ou ímpar)
+//     let escolhaUsuario
+//     do {
+//         escolhaUsuario = prompt("Escolha: PAR ou ÍMPAR?").toLowerCase()
+        
+//         if (escolhaUsuario !== "par" && escolhaUsuario !== "impar") {
+//             alert("Digite apenas 'par' ou 'impar'!")
+//         }
+//     } while (escolhaUsuario !== "par" && escolhaUsuario !== "impar")
+    
+//     // Número do usuário
+//     let numeroUsuario
+//     let erro
+    
+//     do {
+//         numeroUsuario = Number(prompt("Digite um número de 0 a 5:"))
+//         erro = validarNumero(numeroUsuario)
+        
+//         if (erro) {
+//             alert(erro)
+//         }
+//     } while (erro !== null)
+    
+//     // Número do computador
+//     let numeroComputador = gerarNumeroComputador()
+    
+//     // Calcula soma
+//     let soma = numeroUsuario + numeroComputador
+    
+//     // Determina vencedor
+//     let vencedor = determinarVencedor(soma, escolhaUsuario)
+    
+//     // Atualiza placar
+//     if (vencedor === "usuario") {
+//         placarUsuario++
+//     } else {
+//         placarComputador++
+//     }
+    
+//     // Exibe resultado da rodada
+//     alert(exibirRodada(numeroUsuario, numeroComputador, soma, vencedor))
+//     alert(`PLACAR: Você ${placarUsuario} x ${placarComputador} Computador`)
+    
+//     // Pergunta se quer continuar
+//     let resposta
+//     do {
+//         resposta = prompt("Deseja jogar novamente? (SIM ou NÃO)").toLowerCase()
+        
+//         if (resposta !== "sim" && resposta !== "não") {
+//             alert("Digite 'sim' ou 'não'!")
+//         }
+//     } while (resposta !== "sim" && resposta !== "não")
+    
+//     if (resposta === "não") {
+//         continuar = false
+//     }
+    
+// } while (continuar)
+
+// // Exibe placar final
+// let mensagemFinal = `
+// 🏆 PLACAR FINAL 🏆
+// Você: ${placarUsuario}
+// Computador: ${placarComputador}
+// `
+
+// if (placarUsuario > placarComputador) {
+//     mensagemFinal += "\n🎉 PARABÉNS! VOCÊ VENCEU! 🎉"
+// } else if (placarUsuario < placarComputador) {
+//     mensagemFinal += "\n💻 O COMPUTADOR VENCEU! 💻"
+// } else {
+//     mensagemFinal += "\n🤝 EMPATE! 🤝"
+// }
+
+// alert(mensagemFinal)
+
+// // === EXPLICAÇÃO ===
+// // - gerarNumeroComputador = () => Math.floor(Math.random() * 6) → arrow function que gera número de 0 a 5
+// // - validarNumero() → verifica se é número e está entre 0 e 5
+// // - determinarVencedor() → verifica se soma é par ou ímpar e compara com a escolha
+// // - soma % 2 === 0 → verifica se o número é par (resto da divisão por 2 é zero)
+// // - do/while principal → mantém o jogo rodando
+// // - placarUsuario++ e placarComputador++ → incrementa o placar do vencedor
+// // - toLowerCase() → converte resposta para minúsculo para facilitar comparação
+
+
+
+// //================================================================================
+// //================================================================================
+
+
+
+// //================================================================================
+// //📚 QUESTÃO 4 - PROVA
+// //📌 Sistema de tabuada interativa
+
+// // === ENUNCIADO ===
+// // Crie um programa que gera tabuadas personalizadas.
+// // O programa deve:
+// // 1. Perguntar qual número o usuário quer ver a tabuada
+// // 2. Perguntar o início da tabuada (padrão 1)
+// // 3. Perguntar o fim da tabuada (padrão 10)
+// // 4. Exibir a tabuada completa no formato: "N x I = RESULTADO"
+// // 5. Perguntar se quer ver outra tabuada
+// // 6. Quando encerrar, exibir quantas tabuadas foram geradas
+
+// // === RESOLUÇÃO ===
+
+// // Função para validar número
+// function validarNumero(numero, campo) {
+//     if (isNaN(numero)) {
+//         return `${campo} deve ser um número válido!`
+//     }
+//     return null
+// }
+
+// // Função para validar intervalo
+// function validarIntervalo(inicio, fim) {
+//     if (inicio > fim) {
+//         return "O início não pode ser maior que o fim!"
+//     }
+//     return null
+// }
+
+// // Arrow function para gerar tabuada
+// const gerarTabuada = (numero, inicio, fim) => {
+//     let resultado = `📊 TABUADA DO ${numero} 📊\n\n`
+//     resultado = resultado + `De ${inicio} até ${fim}\n`
+//     resultado = resultado + `=================\n\n`
+    
+//     for (let i = inicio; i <= fim; i++) {
+//         const multiplicacao = numero * i
+//         resultado = resultado + `${numero} x ${i} = ${multiplicacao}\n`
+//     }
+    
+//     return resultado
+// }
+
+// // Função para exibir tabuada formatada
+// function exibirTabuada(numero, inicio, fim) {
+//     let tabuada = `\n`
+    
+//     for (let i = inicio; i <= fim; i++) {
+//         tabuada = tabuada + `${numero} x ${i} = ${numero * i}\n`
+//     }
+    
+//     return tabuada
+// }
+
+// // === PROGRAMA PRINCIPAL ===
+// let quantidadeTabuadas = 0
+// let continuar = true
+
+// alert("📐 SISTEMA DE TABUADA INTERATIVA 📐")
+
+// do {
+//     // Coleta e valida o número
+//     let numero
+//     let erroNumero
+    
+//     do {
+//         numero = Number(prompt("Digite o número para ver a tabuada:"))
+//         erroNumero = validarNumero(numero, "O número")
+        
+//         if (erroNumero) {
+//             alert(erroNumero)
+//         }
+//     } while (erroNumero !== null)
+    
+//     // Coleta início (com valor padrão)
+//     let inicio = 1
+//     let respostaInicio = prompt("Digite o início da tabuada (padrão = 1):")
+    
+//     if (respostaInicio !== null && respostaInicio !== "") {
+//         inicio = Number(respostaInicio)
+//         if (isNaN(inicio)) {
+//             alert("Valor inválido! Usando padrão = 1")
+//             inicio = 1
+//         }
+//     }
+    
+//     // Coleta fim (com valor padrão)
+//     let fim = 10
+//     let respostaFim = prompt("Digite o fim da tabuada (padrão = 10):")
+    
+//     if (respostaFim !== null && respostaFim !== "") {
+//         fim = Number(respostaFim)
+//         if (isNaN(fim)) {
+//             alert("Valor inválido! Usando padrão = 10")
+//             fim = 10
+//         }
+//     }
+    
+//     // Valida intervalo
+//     let erroIntervalo = validarIntervalo(inicio, fim)
+    
+//     if (erroIntervalo) {
+//         alert(erroIntervalo)
+//         alert("Invertendo os valores...")
+//         let temp = inicio
+//         inicio = fim
+//         fim = temp
+//         alert(`Ajustado: início = ${inicio}, fim = ${fim}`)
+//     }
+    
+//     // Gera e exibe a tabuada
+//     const tabuadaCompleta = gerarTabuada(numero, inicio, fim)
+//     alert(tabuadaCompleta)
+    
+//     // Incrementa contador
+//     quantidadeTabuadas++
+    
+//     // Pergunta se quer continuar
+//     let resposta
+//     do {
+//         resposta = prompt("Deseja ver outra tabuada? (SIM ou NÃO)").toLowerCase()
+        
+//         if (resposta !== "sim" && resposta !== "não") {
+//             alert("Digite 'sim' ou 'não'!")
+//         }
+//     } while (resposta !== "sim" && resposta !== "não")
+    
+//     if (resposta === "não") {
+//         continuar = false
+//     }
+    
+// } while (continuar)
+
+// // Exibe resumo final
+// alert(`📊 RESUMO FINAL 📊\n\nTabuadas geradas: ${quantidadeTabuadas}\nObrigado por usar o sistema!`)
+
+// // === EXPLICAÇÃO ===
+// // - validarNumero() → verifica se a entrada é um número válido
+// // - validarIntervalo() → verifica se início é menor ou igual ao fim
+// // - const gerarTabuada = () => {} → arrow function que monta a string da tabuada
+// // - for (let i = inicio; i <= fim; i++) → laço que gera cada linha da tabuada
+// // - numero * i → calcula o resultado da multiplicação
+// // - prompt com valor padrão → se usuário não digitar nada, usa valor definido
+// // - Inversão automática → se início > fim, o programa troca os valores
+// // - quantidadeTabuadas++ → conta quantas tabuadas foram geradas
+
+
+
+// //================================================================================
+// //================================================================================
+
+
+
+// //================================================================================
+// //📚 QUESTÃO 5 - PROVA
+// //📌 Analisador de números com estatísticas
+
+// // === ENUNCIADO ===
+// // Desenvolva um programa que analisa uma lista de números informados pelo usuário.
+// // O programa deve:
+// // 1. Solicitar quantos números serão analisados
+// // 2. Coletar cada número (validar se é número)
+// // 3. Ao final, exibir:
+// //    - O maior número
+// //    - O menor número
+// //    - A soma de todos os números
+// //    - A média aritmética
+// //    - Quantos números são pares
+// //    - Quantos números são ímpares
+// //    - Quantos números são positivos
+// //    - Quantos números são negativos (considere zero como neutro)
+
+// // === RESOLUÇÃO ===
+
+// // Função para validar número
+// function validarNumero(valor) {
+//     if (isNaN(valor)) {
+//         return false
+//     }
+//     return true
+// }
+
+// // Arrow function para verificar se é par
+// const ehPar = (numero) => numero % 2 === 0
+
+// // Arrow function para verificar sinal
+// const verificarSinal = (numero) => {
+//     if (numero > 0) return "positivo"
+//     if (numero < 0) return "negativo"
+//     return "neutro"
+// }
+
+// // Função para atualizar estatísticas
+// function atualizarEstatisticas(numero, estatisticas) {
+//     // Maior e menor
+//     if (numero > estatisticas.maior) {
+//         estatisticas.maior = numero
+//     }
+//     if (numero < estatisticas.menor) {
+//         estatisticas.menor = numero
+//     }
+    
+//     // Soma
+//     estatisticas.soma = estatisticas.soma + numero
+    
+//     // Pares e ímpares
+//     if (ehPar(numero)) {
+//         estatisticas.pares++
+//     } else {
+//         estatisticas.impares++
+//     }
+    
+//     // Positivos, negativos e neutros
+//     const sinal = verificarSinal(numero)
+//     if (sinal === "positivo") {
+//         estatisticas.positivos++
+//     } else if (sinal === "negativo") {
+//         estatisticas.negativos++
+//     } else {
+//         estatisticas.neutros++
+//     }
+// }
+
+// // Função para exibir relatório
+// function exibirRelatorio(estatisticas) {
+//     const media = estatisticas.soma / estatisticas.total
+    
+//     return `
+// 📊 RELATÓRIO FINAL 📊
+// ========================
+// 
+// 🔢 Total de números: ${estatisticas.total}
+// 
+// 📈 Maior número: ${estatisticas.maior}
+// 📉 Menor número: ${estatisticas.menor}
+// 
+// ➕ Soma total: ${estatisticas.soma}
+// 📊 Média: ${media.toFixed(2)}
+// 
+// 🔵 Números pares: ${estatisticas.pares}
+// 🟠 Números ímpares: ${estatisticas.impares}
+// 
+// ✅ Positivos: ${estatisticas.positivos}
+// ❌ Negativos: ${estatisticas.negativos}
+// ⚪ Neutros (zero): ${estatisticas.neutros}
+// `
+// }
+
+// // === PROGRAMA PRINCIPAL ===
+// let quantidade
+
+// alert("📊 ANALISADOR DE NÚMEROS 📊")
+
+// // Valida quantidade de números
+// do {
+//     quantidade = Number(prompt("Quantos números você quer analisar?"))
+    
+//     if (isNaN(quantidade) || quantidade <= 0) {
+//         alert("Digite um número inteiro positivo!")
+//     }
+// } while (isNaN(quantidade) || quantidade <= 0)
+
+// // Inicializa objeto de estatísticas
+// let estatisticas = {
+//     total: quantidade,
+//     maior: -Infinity,  // Começa com o menor valor possível
+//     menor: Infinity,   // Começa com o maior valor possível
+//     soma: 0,
+//     pares: 0,
+//     impares: 0,
+//     positivos: 0,
+//     negativos: 0,
+//     neutros: 0
+// }
+
+// // Coleta e analisa cada número
+// for (let i = 1; i <= quantidade; i++) {
+//     let numero
+//     let valido = false
+    
+//     do {
+//         let entrada = prompt(`Digite o ${i}º número:`)
+        
+//         if (entrada === null) {
+//             alert("Programa cancelado!")
+//             break
+//         }
+        
+//         numero = Number(entrada)
+//         valido = validarNumero(numero)
+        
+//         if (!valido) {
+//             alert("Digite um número válido!")
+//         }
+        
+//     } while (!valido)
+    
+//     if (entrada === null) {
+//         break // Sai do programa se cancelar
+//     }
+    
+//     // Atualiza estatísticas com o número válido
+//     atualizarEstatisticas(numero, estatisticas)
+// }
+
+// // Exibe relatório final
+// if (estatisticas.total > 0) {
+//     const relatorio = exibirRelatorio(estatisticas)
+//     alert(relatorio)
+//     console.log(relatorio) // Também exibe no console para referência
+// }
+
+// // === EXPLICAÇÃO ===
+// // - validarNumero() → verifica se o valor é um número válido
+// // - ehPar = (numero) => numero % 2 === 0 → arrow function que retorna true se for par
+// // - verificarSinal() → retorna "positivo", "negativo" ou "neutro"
+// // - objeto estatisticas → armazena todos os valores calculados
+// // - -Infinity e Infinity → valores especiais para garantir que qualquer número será maior/menor
+// // - atualizarEstatisticas() → atualiza todas as métricas com cada novo número
+// // - media = soma / total → calcula a média aritmética
+// // - toFixed(2) → formata média com 2 casas decimais
+// // - for com do/while interno → garante que cada número é válido antes de prosseguir
+// // - objeto com propriedades → organização limpa dos dados estatísticos
+
+// //================================================================================
+// //================================================================================
